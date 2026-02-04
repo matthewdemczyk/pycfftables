@@ -1,0 +1,14 @@
+# pyproject.toml
+[build-system]
+requires = ["setuptools>=45", "wheel", "Cython>=0.29"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pycfftables"
+version = "0.1.0"
+description = "Python wrapper for libcfftables"
+requires-python = ">=3.8"
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]
