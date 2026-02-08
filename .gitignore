@@ -4,3 +4,9 @@ src/pycfftables/*.so
 src/pycfftables.egg-info
 test.py
 TODO
+docs/_build/
+docs/_static/
+docs/_templates/
+docs/modules.rst
+docs/pycfftables.rst
+docs/.doctrees/
