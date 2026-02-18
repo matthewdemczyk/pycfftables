@@ -1,6 +1,12 @@
 import os
 import sys
-sys.path.insert(0, os.path.abspath('..'))
+import ctypes
+
+# Force load libcfftables so the dynamic linker can find it
+venv_path = os.environ.get('READTHEDOCS_VIRTUALENV_PATH', '')
+if venv_path:
+    ctypes.CDLL('libflint.so', mode=ctypes.RTLD_GLOBAL)
+    ctypes.CDLL(os.path.join(venv_path, 'lib', 'libcfftables.so.0'), mode=ctypes.RTLD_GLOBAL)
 
 autodoc_typehints = 'both'
 autodoc_typehints_description_target = 'documented'
@@ -22,7 +28,7 @@ intersphinx_mapping = {
 project = 'pycfftables'
 copyright = '2026, Matthew Demczyk'
 author = 'Matthew Demczyk'
-release = '1.0.0'
+release = '0.1.0'
 
 # -- General configuration ----------------------------
 templates_path = ['_templates']

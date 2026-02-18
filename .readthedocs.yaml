@@ -1,0 +1,18 @@
+version: 2
+build:
+  os: ubuntu-24.04
+  tools:
+    python: "3.13"
+  apt_packages:
+    - libflint-dev
+    - cmake
+  jobs:
+    pre_build:
+      - git clone https://github.com/matthewdemczyk/libcfftables.git /tmp/libcfftables
+      - cd /tmp/libcfftables && mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$READTHEDOCS_VIRTUALENV_PATH -DBUILD_TESTING=OFF && cmake --build . && cmake --install .
+      - export PKG_CONFIG_PATH=$READTHEDOCS_VIRTUALENV_PATH/lib/pkgconfig:$PKG_CONFIG_PATH && export LD_LIBRARY_PATH=$READTHEDOCS_VIRTUALENV_PATH/lib:$LD_LIBRARY_PATH && pip install .
+sphinx:
+  configuration: docs/conf.py
+python:
+  install:
+    - requirements: docs/requirements.txt
