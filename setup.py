@@ -47,21 +47,15 @@ extensions = [
 ]
 
 setup(
-    name="pycfftables",
-    version="0.1.0",
     ext_modules=cythonize(
         extensions,
         compiler_directives={
             'language_level': "3",
-            'boundscheck': True,     # Keep True during development
-            'wraparound': True,      # Keep True during development
-            'embedsignature': True,  # Embeds signatures in docstrings
+            'boundscheck': False,
+            'wraparound': False,
+            'embedsignature': True,
             'binding': True,
-        }
+        },
+        annotate = True,
     ),
-    packages=["pycfftables"],
-    package_dir={"": "src"},
-    install_requires=[
-        "cython>=0.29",
-    ],
 )
