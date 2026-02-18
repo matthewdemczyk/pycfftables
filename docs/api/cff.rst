@@ -5,44 +5,41 @@ CFF Class
 
 .. autoclass:: CFF
    :undoc-members:
-   :show-inheritance:
-   :special-members: __getitem__, __setitem__, __repr__, __str__
+   :special-members: __repr__, __str__
 
 
 Reading a CFF
 -------------
 
-CFF objects have 4 views available by accessing either the ``CFF.rows``,
-``CFF.cols``, ``CFF.subsets``, ``CFF.pools`` properties, then iterating over them or indexing them.
-All of these views will return a tuple (when indexing) or yield a tuple (when iterating).
+CFF objects provide four views for accessing the incidence matrix in different ways:
 
-An example of reading the group testing pools of a CFF:
+   - ``CFF.rows`` — each element is a tuple of n integers (0s and 1s), one per row
+   - ``CFF.cols`` — each element is a tuple of t integers (0s and 1s), one per column
+   - ``CFF.subsets`` — each element is a tuple of row indices where the column contains a 1, one per column
+   - ``CFF.pools`` — each element is a tuple of column indices where the row contains a 1, one per row
 
-.. code-block:: python
+All views support indexing and iteration. Indexing returns a single tuple, iteration produces one tuple per element.
 
-   table = CFFTable(d_max = 5, t_max = 100, n_max = 10000)
-   cff = table.get_by_t(d = 2, t = 15)
-   for pool in cff.pools:
-      # ... your group testing application code here...
-      # there are t pools with values in 0 ... n-1, given as tuples by CFF.pools
-      print(pool)
+.. autoattribute:: CFF.rows
+.. autoattribute:: CFF.cols
+.. autoattribute:: CFF.subsets
+.. autoattribute:: CFF.pools
+.. automethod:: CFF.__getitem__
+.. automethod:: CFF.__setitem__
 
-Indexing
---------
+Properties
+----------
 
-CFF objects support 2D indexing with ``[row, col]`` syntax:
-
-.. code-block:: python
-
-   cff = CFF.sperner(6)
-   value = cff[0, 0]  # Get value at row 0, col 0
-   cff[0, 0] = 1      # Set value
+.. autoattribute:: CFF.d
+.. autoattribute:: CFF.t
+.. autoattribute:: CFF.n
+.. autoattribute:: CFF.shape
 
 
-
-Construction Methods
+Direct Constructions
 --------------------
 
+.. automethod:: CFF.all_zeros
 .. automethod:: CFF.identity
 .. automethod:: CFF.sperner
 .. automethod:: CFF.sts
@@ -59,20 +56,9 @@ Recursive Constructions
 .. automethod:: CFF.kronecker
 .. automethod:: CFF.optimized_kronecker
 
-Matrix Operations
------------------
-
-.. automethod:: CFF.get_value
-.. automethod:: CFF.set_value
-.. automethod:: CFF.verify
-
-File I/O
---------
-
-.. automethod:: CFF.write_to_filepath
-.. automethod:: CFF.write_to_file_obj
-
 Other Methods
 -------------
 
+.. automethod:: CFF.verify
 .. automethod:: CFF.copy
+.. automethod:: CFF.write_to_filepath
