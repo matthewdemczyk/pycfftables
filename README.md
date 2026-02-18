@@ -3,7 +3,7 @@
 
 ## About
 
-This is a Python wrapper for the C library libcfftables. This library constructs $d$-Cover-Free Families (CFFs).
+This is a Python wrapper for the C library [libcfftables](https://github.com/matthewdemczyk/libcfftables). This library constructs $d$-Cover-Free Families (CFFs).
 
 A $d$-CFF($t,n$) is a set system where the ground set has $t$ elements, the set system has $n$ subsets, and no subset is contained in the union of any other $d$ subsets.
 
@@ -65,15 +65,18 @@ Full API documentation is available at: https://pycfftables.readthedocs.io/en/la
 
 ## Installation
 ### Install dependencies
-Ubuntu/Debian:
+**Ubuntu/Debian:**
 ```bash
 sudo apt install libflint-dev cmake
 ```
-MacOS:
+**macOS:**
 ```bash
 brew install flint cmake
 ```
-Alternatively, flint can be installed from conda-forge using conda
+Alternatively, flint and cmake can be installed from conda-forge using conda on both macOS and linux
+```bash
+conda install -c conda-forge libflint cmake make
+```
 
 ### Install libraries
 ```bash
