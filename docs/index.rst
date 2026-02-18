@@ -53,6 +53,46 @@ An example of using a CFF for group testing:
    print(f'Positives at indices {suspects}.')
    print(f'Found using {group_test_calls} tests out of {len(elements)} elements.')
 
+Installation
+------------
+
+Dependencies
+~~~~~~~~~~~~
+
+**Ubuntu/Debian:**
+
+.. code-block:: bash
+
+   sudo apt install libflint-dev cmake
+
+**macOS:**
+
+.. code-block:: bash
+
+   brew install flint cmake
+
+Alternatively, flint and cmake can be installed from conda-forge on both macOS and Linux:
+
+.. code-block:: bash
+
+   conda install -c conda-forge libflint cmake make
+
+Libraries
+~~~~~~~~~
+
+.. code-block:: bash
+
+   # Clone and build libcfftables
+   git clone https://github.com/matthewdemczyk/libcfftables.git
+   cd libcfftables && mkdir build && cd build
+   cmake .. -DCMAKE_BUILD_TYPE=Release && cmake --build . && sudo cmake --install .
+   sudo ldconfig  # Linux only, skip on macOS
+   cd ../..
+
+   # Clone and install pycfftables
+   git clone https://github.com/matthewdemczyk/pycfftables.git
+   cd pycfftables && pip install .
+
 API Reference
 -------------
 
