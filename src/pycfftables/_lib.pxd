@@ -8,12 +8,13 @@ cdef extern from "libcfftables/libcfftables.h":
     cff_t* cff_copy(const cff_t *src)
     int cff_get_d(const cff_t *cff)
     int cff_get_t(const cff_t *cff)
-    int cff_get_n(const cff_t *cff)
+    long long cff_get_n(const cff_t *cff)
     void cff_set_d(cff_t *cff, int d)
     int cff_get_matrix_value(const cff_t *cff, int r, int c)
     void cff_set_matrix_value(cff_t *cff, int r, int  c, int val)
     void cff_write(const cff_t *cff, FILE *file)
     bint cff_verify(const cff_t *cff)
+    void cff_reduce_n(cff_t * cff, long long n)
 
     ctypedef struct cff_table_ctx_t:
         pass
@@ -35,4 +36,4 @@ cdef extern from "libcfftables/libcfftables.h":
     cff_t* cff_kronecker(const cff_t *left, const cff_t *right)
     cff_t* cff_optimized_kronecker(const cff_t *kronecker_outer, const cff_t *kronecker_inner, const cff_t *bottom_cff)
     const unsigned char* cff_matrix_data(const cff_t *cff)
-    int cff_get_row_pitch_bits(const cff_t *cff)
+    long long cff_get_row_pitch_bits(const cff_t *cff)
