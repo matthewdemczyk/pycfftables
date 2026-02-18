@@ -11,3 +11,5 @@ docs/_templates/
 docs/modules.rst
 docs/pycfftables.rst
 docs/.doctrees/
+tests/__pycache__
+.pytest_cache
