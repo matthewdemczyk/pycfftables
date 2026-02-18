@@ -1,6 +1,7 @@
 src/pycfftables/__pycache__
 src/pycfftables/*.c
 src/pycfftables/*.so
+src/pycfftables/_lib.html
 src/pycfftables.egg-info
 test.py
 TODO
