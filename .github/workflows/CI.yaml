@@ -8,27 +8,43 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+
     steps:
-      - uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-      - name: Install system dependencies
-        run: sudo apt-get install -y libflint-dev cmake
+    - name: Setup Miniconda
+      uses: conda-incubator/setup-miniconda@v3
+      with:
+        auto-update-conda: true
+        python-version: "3.11"
+        channels: conda-forge
+        channel-priority: strict
 
-      - name: Build and install libcfftables
-        run: |
-          git clone https://github.com/matthewdemczyk/libcfftables.git
-          cd libcfftables && mkdir build && cd build
-          cmake .. -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF && cmake --build . && sudo cmake --install .
-          sudo ldconfig
+    - name: Install dependencies
+      shell: bash -el {0}
+      run: |
+        conda install -c conda-forge libflint cmake make
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.13"
+    - name: Build and install libcfftables
+      shell: bash -el {0}
+      run: |
+        git clone https://github.com/matthewdemczyk/libcfftables.git
+        cd libcfftables && mkdir build && cd build
+        export PKG_CONFIG_PATH="${CONDA_PREFIX}/lib/pkgconfig:${PKG_CONFIG_PATH}"
+        cmake .. -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF \
+          -DCMAKE_INSTALL_PREFIX="${CONDA_PREFIX}"
+        cmake --build . && cmake --install .
 
-      - name: Install pycfftables and pytest
-        run: pip install ".[dev]"
+    - name: Install pycfftables and pytest
+      shell: bash -el {0}
+      run: |
+        export PKG_CONFIG_PATH="${CONDA_PREFIX}/lib/pkgconfig:${PKG_CONFIG_PATH}"
+        pip install ".[dev]"
 
-      - name: Run tests
-        run: pytest tests/
+    - name: Run tests
+      shell: bash -el {0}
+      run: pytest tests/
