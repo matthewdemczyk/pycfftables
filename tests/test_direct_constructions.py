@@ -41,3 +41,9 @@ def test_sts():
     assert cff
     assert cff.verify()
     print(cff)
+
+def test_reed_solomon():
+    cff = CFF.reed_solomon(5, 1, 2, 4)
+    assert cff
+    assert cff.verify()
+    print(cff)
