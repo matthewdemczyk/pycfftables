@@ -6,7 +6,7 @@ import ctypes
 venv_path = os.environ.get('READTHEDOCS_VIRTUALENV_PATH', '')
 if venv_path:
     ctypes.CDLL('libflint.so', mode=ctypes.RTLD_GLOBAL)
-    ctypes.CDLL(os.path.join(venv_path, 'lib', 'libcfftables.so.0'), mode=ctypes.RTLD_GLOBAL)
+    ctypes.CDLL(os.path.join(venv_path, 'lib', 'libcfftables.so'), mode=ctypes.RTLD_GLOBAL)
 
 autodoc_typehints = 'both'
 autodoc_typehints_description_target = 'documented'
